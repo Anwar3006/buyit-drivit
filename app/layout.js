@@ -1,6 +1,8 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer";
+import { ClerkProvider } from "@clerk/nextjs";
+import Header from "@/components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,12 +13,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
-        <main className="min-h-screen">{children}</main>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`${inter.variable} antialiased`}>
+          <Header />
 
-        <Footer />
-      </body>
-    </html>
+          <main className="min-h-screen">{children}</main>
+
+          <Footer />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
