@@ -120,3 +120,30 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  @keyframes backgroundShift {
+    0% {
+      background-color: #3b82f6; /* blue-500 */
+    }
+    20% {
+      background-color: #10b981; /* emerald-500 */
+    }
+    40% {
+      background-color: #8b5cf6; /* violet-500 */
+    }
+    60% {
+      background-color: #ef4444; /* red-500 */
+    }
+    80% {
+      background-color: #f59e0b; /* amber-500 */
+    }
+    100% {
+      background-color: #3b82f6; /* back to blue-500 */
+    }
+  }
+
+  .bg-rainbow-shift {
+    animation: backgroundShift 14s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}

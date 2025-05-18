@@ -13,6 +13,17 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: [
+      "img.clerk.com", // Allow Clerk images
+      "images.clerk.dev", // Additional Clerk domain
+      "uploadthing.com", // In case you use UploadThing
+      "utfs.io", // UploadThing file storage domain
+      "images.unsplash.com",
+      "www.byd.com",
+      "i02.appmifile.com",
+    ],
+  },
 };
 
 export default nextConfig;
