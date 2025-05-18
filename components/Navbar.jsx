@@ -18,7 +18,6 @@ import {
   LogOut,
   MenuIcon,
   User,
-  Settings,
   LogIn,
   UserPlus2Icon,
 } from "lucide-react";
@@ -33,9 +32,8 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const Navbar = ({ isAdminPage = false }) => {
-  const { user } = useUser();
-  const isAdmin = user?.publicMetadata?.role === "admin" || false;
+const Navbar = ({ userData, isAdmin, isAdminPage = false }) => {
+  const user = userData;
 
   // State to track scroll position
   const [isScrolled, setIsScrolled] = useState(false);

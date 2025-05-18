@@ -108,7 +108,7 @@ const CarCard = ({ car }) => {
         </div>
 
         <Button
-          className="w-full bg-rainbow-shift text-white font-medium transition-colors duration-300 hover:bg-zinc-900"
+          className="w-full bg-rainbow-shift text-white font-medium transition-colors duration-300 hover:bg-zinc-900 hover:cursor-pointer"
           onClick={(e) => {
             e.stopPropagation();
             router.push(`/cars/${car.id}`);

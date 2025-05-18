@@ -1,11 +1,10 @@
-"use client";
 import CarCard from "@/components/CarCard";
 import BackgroundImageRotator from "@/components/LandingPage/BackgroundImageRotator";
 import CarFeatures from "@/components/LandingPage/CarFeatures";
 import CarGallery from "@/components/LandingPage/CarGallery";
 import ExploreSection from "@/components/LandingPage/ExploreSection";
 import Hero from "@/components/LandingPage/Hero";
-import Navbar from "@/components/Navbar";
+import NavbarWrapper from "@/components/NavbarWrapper";
 import {
   Accordion,
   AccordionContent,
@@ -50,7 +49,7 @@ export default function Home() {
         <div className="relative z-10 h-screen flex flex-col">
           {/* Navbar at the top */}
           <div className="w-full px-4 pt-4 md:px-8 lg:px-12">
-            <Navbar />
+            <NavbarWrapper />
           </div>
 
           {/* Main content area */}

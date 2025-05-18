@@ -1,7 +1,6 @@
-// components/LandingPage/Hero.jsx
+"use client";
 import React, { useState } from "react";
-import { ArrowRight, PersonStanding } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 import { Roboto } from "next/font/google";
 import HomeSearchModal from "./HomeSearchModal";

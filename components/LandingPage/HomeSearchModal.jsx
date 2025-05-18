@@ -53,10 +53,10 @@ const HomeSearchModal = ({ open, onClose }) => {
         }
 
         // Make API call for image search
-        const response = await fetch("/api/imageSearch", {
-          method: "POST",
-          body: formData,
-        });
+        // const response = await fetch("/api/imageSearch", {
+        //   method: "POST",
+        //   body: formData,
+        // });
 
         if (!response.ok) {
           throw new Error(`Image search failed: ${response.statusText}`);
@@ -84,10 +84,6 @@ const HomeSearchModal = ({ open, onClose }) => {
         toast.success("Search completed successfully");
       }
 
-      // Here you would typically:
-      // 1. Store results in state or context
-      // 2. Close the modal
-      // 3. Navigate to results page or update UI
       onClose(false); // Close the search modal
     } catch (error) {
       console.error("Search error:", error);

@@ -107,6 +107,29 @@ This guide provides step-by-step instructions to set up a modern web application
     export default nextConfig;
     ```
 
+11. Install [Prisma](https://www.prisma.io/): `npm i -D prisma` && `npm i @prisma/client`
+
+    - Initialize prisma: `npx prisma init` && `npx prisma generate`
+    - After initializing, go to `prisma/schema.prisma`, since we are using Supabase we will have to include the DIRECT_URL from Supabase as well.
+    - Database Design using [Eraser](https://www.eraser.io/):
+
+      - Admin Management System, here we create a table for this because we want the flexibility of adding more Dealers in the future instead of coupling the entire system to only one dealer:
+
+        - DealershipInfo(info about the dealer) - One-to-One, Composite Relationship - WorkingHours
+
+      - Client-Side System:
+        - User(the users) - One-to-One, Composite Relationship - UserSavedCar
+        - User(the users) - One-to-One, Composite Relationship - TestDriveBooking
+        - Car(the cars) - One-to-One, Composite Relationship - UserSavedCar
+        - Car(the cars) - One-to-One, Composite Relationship - TestDriveBooking
+
+    - Then create the migration to Supabase with `npx prisma migrate dev --name nameOfMigration`
+    - Create the prismaClient, your should import PrismaClient from the folder generated from running `npx prisma generate`
+
+    ```jsx
+    import { PrismaClient } from "./generated/prisma/client";
+    ```
+
 ## Final Steps
 
 11. Test your application thoroughly:
