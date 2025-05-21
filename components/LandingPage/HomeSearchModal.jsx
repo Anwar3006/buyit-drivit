@@ -96,7 +96,6 @@ const HomeSearchModal = ({ open, onClose }) => {
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const file = acceptedFiles[0];
-      console.log(file);
 
       if (file.size > 5 * 1024 * 1024) {
         toast.error("Image size must be less than 5MB");

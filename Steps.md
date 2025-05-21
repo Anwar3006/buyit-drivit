@@ -130,6 +130,9 @@ This guide provides step-by-step instructions to set up a modern web application
     import { PrismaClient } from "./generated/prisma/client";
     ```
 
+12. Using [Google Gemini](), go to the site and generate an API Key and paste in .env file.
+    - Install the packages `npm i @google/generative-ai`
+
 ## Final Steps
 
 11. Test your application thoroughly:

@@ -13,14 +13,12 @@ const AdminLayout = async ({ children }) => {
 
   return (
     <div>
-      <div className="w-full px-4 pt-4 md:px-8">
-        <NavbarWrapper isAdminPage={true} />
-      </div>
+      <NavbarWrapper isAdminPage={true} />
 
-      <div className="flex w-full h-full flex-col top-20 fixed inset-y-0 z-50">
+      <div className="flex w-56 h-full flex-col top-16 fixed inset-y-0 z-20">
         <Sidebar />
       </div>
-      <main className="container mx-auto my-8 md:pl-56 h-full">{children}</main>
+      <main className="mx-auto md:pl-56 h-full bg-gray-50!">{children}</main>
     </div>
   );
 };

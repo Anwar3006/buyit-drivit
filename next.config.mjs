@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverComponentsHmrCache: false,
+    serverActions: {
+      bodySizeLimit: "10mb", // Increase limit to 10MB
+    },
+  },
   async headers() {
     return [
       {
@@ -22,6 +28,12 @@ const nextConfig = {
       "images.unsplash.com",
       "www.byd.com",
       "i02.appmifile.com",
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "byrrlrerklpghrntvgak.supabase.co",
+      },
     ],
   },
 };

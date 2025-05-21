@@ -1,0 +1,21 @@
+import React from "react";
+import CarsList from "./_components/CarsList";
+
+export const metadata = {
+  title: "Cars | BitDit Admin",
+  description: "Manage the cars in your marketplace",
+};
+
+const CarsPage = () => {
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-6 font-quicksand">
+        Cars Management
+      </h1>
+
+      <CarsList />
+    </div>
+  );
+};
+
+export default CarsPage;

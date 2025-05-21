@@ -93,12 +93,12 @@ const Navbar = ({ userData, isAdmin, isAdminPage = false }) => {
         className={`transition-all duration-500 ${
           isScrolled
             ? "fixed top-0 left-0 right-0 w-full z-90 shadow-xl"
-            : "relative rounded-lg"
+            : "relative rounded-xl"
         } bg-white px-3`}
       >
         <div
           className={`${
-            isScrolled ? "px-4 py-2 max-w-7xl mx-auto" : ""
+            isScrolled ? "px-4 py-2 max-w-7xl mx-auto" : "py-2"
           } flex items-center justify-between w-full`}
         >
           {/* Logo */}
@@ -111,7 +111,7 @@ const Navbar = ({ userData, isAdmin, isAdminPage = false }) => {
               alt="App Logo"
               width={200}
               height={60}
-              className="h-12 w-auto object-contain"
+              className="h-6 md:h-12 w-auto object-contain"
             />
             {isAdminPage && (
               <span className="text-xs font-bold ml-2 bg-black text-white px-2 py-1 rounded">
@@ -147,8 +147,8 @@ const Navbar = ({ userData, isAdmin, isAdminPage = false }) => {
             {isAdminPage ? (
               <Link href={"/"}>
                 <Button variant="outline" className="flex items-center gap-2">
-                  <ArrowLeft size={18} />
-                  <span>Back To App</span>
+                  <ArrowLeft className="h-3 w-3 md:h-5 md:w-5" />
+                  <span className="text-xs md:text-base">Back To App</span>
                 </Button>
               </Link>
             ) : (
