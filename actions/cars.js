@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { db } from "@/lib/prismaClient";
 import { revalidatePath } from "next/cache";
 import { serializeCarData } from "@/lib/helpers";
+import { auth } from "@clerk/nextjs/server";
 
 const fileToBase64 = async (file) => {
   const bytes = await file.arrayBuffer();
