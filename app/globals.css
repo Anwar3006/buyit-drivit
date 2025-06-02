@@ -146,4 +146,8 @@
   .bg-rainbow-shift {
     animation: backgroundShift 14s infinite cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+  .gradient-title {
+    @apply bg-gradient-to-br from-blue-500 to-green-500 font-extrabold tracking-tighter pr-2 pb-2 text-transparent bg-clip-text;
+  }
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,8 @@ import * as Switch from "@radix-ui/react-switch";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import useFetch from "@/hooks/use-fetch";
+import { processImageSearch } from "@/actions/home";
 
 const HomeSearchModal = ({ open, onClose }) => {
   const [textSearch, setTextSearch] = useState("");
@@ -28,6 +30,13 @@ const HomeSearchModal = ({ open, onClose }) => {
   const [isSearching, setIsSearching] = useState(false);
 
   const router = useRouter();
+
+  const {
+    isLoading: isProcessing,
+    data: processResult,
+    error: processError,
+    fn: processImageFn,
+  } = useFetch(processImageSearch);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -52,11 +61,7 @@ const HomeSearchModal = ({ open, onClose }) => {
           formData.append("text", textSearch);
         }
 
-        // Make API call for image search
-        // const response = await fetch("/api/imageSearch", {
-        //   method: "POST",
-        //   body: formData,
-        // });
+        await processImageFn(searchImage);
 
         if (!response.ok) {
           throw new Error(`Image search failed: ${response.statusText}`);
@@ -92,6 +97,31 @@ const HomeSearchModal = ({ open, onClose }) => {
       setIsSearching(false);
     }
   };
+
+  // for error in processing image
+  useEffect(() => {
+    if (processError) {
+      toast.error(
+        "failed to analyze image: " + processError.message || "Unknown error"
+      );
+    }
+  }, [processError]);
+
+  // for successful image processed
+  useEffect(() => {
+    if (processResult?.success) {
+      const params = new URLSearchParams();
+
+      if (processResult?.data.make)
+        params.set("make", processResult?.data.make);
+      if (processResult?.data.bodyType)
+        params.set("bodyType", processResult?.data.bodyType);
+      if (processResult?.data.color)
+        params.set("color", processResult?.data.color);
+
+      router.push(`/cars?${params.toString()}`);
+    }
+  }, [processResult]);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {

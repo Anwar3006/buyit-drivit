@@ -159,7 +159,7 @@ const AddCarForm = () => {
       router.push("/admin/cars");
     }
   }, [processImageError]);
-  // UseEffect for when ai image upload is not successful
+  // UseEffect for when ai image upload is successful
   useEffect(() => {
     if (processImageResult?.success) {
       const carDetails = processImageResult.data;
@@ -173,8 +173,18 @@ const AddCarForm = () => {
       setValue("color", carDetails.color);
       setValue("bodyType", carDetails.bodyType);
       setValue("fuelType", carDetails.fuelType);
-      setValue("price", carDetails.price);
-      setValue("mileage", carDetails.mileage);
+      setValue(
+        "price",
+        carDetails.price.includes("$")
+          ? carDetails.price.slice(1).replace(",", "")
+          : carDetails.price
+      );
+      setValue(
+        "mileage",
+        carDetails.mileage === "UNKNOWN" || carDetails.mileage === "Unknown"
+          ? Math.floor(Math.random() * 1000).toString()
+          : carDetails.mileage
+      );
       setValue("transmission", carDetails.transmission);
       setValue("description", carDetails.description);
 

@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 import { serializeCarData } from "@/lib/helpers";
 import { auth } from "@clerk/nextjs/server";
 
-const fileToBase64 = async (file) => {
+export const fileToBase64 = async (file) => {
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
   return buffer.toString("base64");

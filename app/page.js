@@ -1,3 +1,4 @@
+import { getFeaturedCars } from "@/actions/home";
 import CarCard from "@/components/CarCard";
 import BackgroundImageRotator from "@/components/LandingPage/BackgroundImageRotator";
 import CarFeatures from "@/components/LandingPage/CarFeatures";
@@ -13,7 +14,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { bodyTypes, carMakes, faqItems, featuredCars } from "@/lib/data";
+import { bodyTypes, carMakes, faqItems } from "@/lib/data";
 import { SignedOut } from "@clerk/nextjs";
 import { Calendar, Car, ChevronRight, ShieldCheckIcon } from "lucide-react";
 import { Quicksand } from "next/font/google";
@@ -29,7 +30,9 @@ const quicksand = Quicksand({
   variable: "--font-quicksand",
 });
 
-export default function Home() {
+export default async function Home() {
+  const featuredCars = await getFeaturedCars();
+
   return (
     <>
       <Head>
@@ -62,26 +65,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 ">
-        <div className="container mx-auto px-4">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className={`text-2xl font-bold ${quicksand.className}`}>
-              Featured Cars
-            </h2>
-            <Button variant="ghost" className="flex items-center" asChild>
-              <Link href={"/cars"}>
-                View All <ChevronRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+      {featuredCars.length > 0 && (
+        <section className="py-12 ">
+          <div className="container mx-auto px-4">
+            <div className="mb-8 flex items-center justify-between">
+              <h2 className={`text-2xl font-bold ${quicksand.className}`}>
+                Featured Cars
+              </h2>
+              <Button variant="ghost" className="flex items-center" asChild>
+                <Link href={"/cars"}>
+                  View All <ChevronRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCars.map((car) => (
-              <CarCard key={car.id} car={car} />
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredCars.map((car) => (
+                <CarCard key={car.id} car={car} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <Separator className="container mx-auto" />
 

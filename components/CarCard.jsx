@@ -1,15 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "./ui/card";
 import Image from "next/image";
 import { CarIcon, HeartIcon } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
+import useFetch from "@/hooks/use-fetch";
+import { toggleSavedCars } from "@/actions/car-listing";
+import { useAuth } from "@clerk/nextjs";
+import { toast } from "sonner";
 
 const CarCard = ({ car }) => {
   const router = useRouter();
   const [isLiked, setIsLiked] = useState(car.wishlisted);
+  const { isSignedIn } = useAuth();
+
   const colorMap = {
     red: "bg-red-200",
     blue: "bg-blue-200",
@@ -25,9 +31,38 @@ const CarCard = ({ car }) => {
     brown: "bg-amber-200",
   };
 
-  const handleHeartClick = (e) => {
+  const {
+    isLoading: isToggling,
+    data: toggleResult,
+    error: toggleError,
+    fn: toggleSavedFn,
+  } = useFetch(toggleSavedCars);
+
+  useEffect(() => {
+    if (toggleResult?.success && toggleResult.saved !== isLiked) {
+      setIsLiked(toggleResult.saved);
+      toast.success(toggleResult.message);
+    }
+  }, [isLiked, toggleResult]);
+
+  useEffect(() => {
+    if (toggleError) {
+      toast.error("Failed to update favorites");
+    }
+  }, [toggleError]);
+
+  const handleHeartClick = async (e) => {
     e.stopPropagation();
-    setIsLiked(!isLiked);
+
+    if (!isSignedIn) {
+      toast.error("Please sign in to save a car");
+      router.push("/sign-in");
+      return;
+    }
+
+    if (isToggling) return;
+
+    await toggleSavedFn(car.id);
   };
 
   const handleCardClick = () => {
@@ -36,7 +71,7 @@ const CarCard = ({ car }) => {
 
   return (
     <Card
-      className="hover:shadow-lg group transition hover:cursor-pointer overflow-hidden py-0"
+      className="hover:shadow-lg group transition hover:cursor-pointer overflow-hidden py-0 gap-3"
       onClick={handleCardClick}
     >
       <div className="relative h-48">
@@ -69,7 +104,7 @@ const CarCard = ({ car }) => {
         </button>
       </div>
 
-      <CardContent className="p-4">
+      <CardContent className="px-4 pb-4">
         <div className="flex flex-col mb-2">
           <h3 className="text-lg font-bold line-clamp-1">
             <span className="font-bold">{car.make} </span>
